@@ -5,6 +5,6 @@
 #include "python_frontend/frontend.h"
 
 int main(int argc, char *argv[]) {
-  test_python();
+  get_simple_net();
   return 0;
 }
