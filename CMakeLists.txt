@@ -20,5 +20,5 @@ if(_py_torch_mlir_status)
     MESSAGE(FATAL_ERROR "Python package torch-mlir is required.Please install torch-mlir first.")
 endif()
 
-
+add_subdirectory(3rdparty/gflags)
 add_subdirectory(converter)

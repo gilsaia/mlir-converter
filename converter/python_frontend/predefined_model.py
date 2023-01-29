@@ -5,9 +5,9 @@ import torch_mlir
 class SimpleNet(nn.Module):
     def __init__(self):
         super().__init__()
-        self.fc1=nn.Linear(32,128)
+        self.fc1=nn.Linear(32,64)
         self.act1=nn.ReLU()
-        self.fc2=nn.Linear(128,16)
+        self.fc2=nn.Linear(64,16)
     
     def forward(self,x):
         x=self.fc1(x)
