@@ -1,5 +1,6 @@
 #include <python3.8/Python.h>
 #include <string>
+#include "frontend.h"
 
 void test_python() {
   Py_Initialize();
@@ -7,7 +8,7 @@ void test_python() {
   Py_Finalize();
 }
 
-char *get_simple_net() {
+char *get_py_simple_net() {
   std::string path = "predefined/predefined_model.py";
   FILE *fp = fopen(path.c_str(), "r");
 

@@ -8,6 +8,7 @@
 #ifdef USE_PYTHON_FRONTEND
 #include "python_frontend/frontend.h"
 #endif
+#include "mlir_frontend/frontend.h"
 
 DEFINE_string(frontend, "torch", "the original model type");
 DEFINE_string(model, "SimpleNet", "Default torch to use");
@@ -38,7 +39,7 @@ int main(int argc, char *argv[]) {
   if (FLAGS_frontend == "torch") {
     if (FLAGS_model == "SimpleNet") {
 #ifdef USE_PYTHON_FRONTEND
-      source = get_simple_net();
+      source = get_py_simple_net();
 #else
       throw NotWithPython();
 #endif
@@ -46,7 +47,11 @@ int main(int argc, char *argv[]) {
       throw NotImplemented();
     }
   } else {
-    throw NotImplemented();
+    if (FLAGS_model == "SimpleNet") {
+      source = get_mlir_simple_net();
+    } else {
+      throw NotImplemented();
+    }
   }
   FILE *fp = fopen(FLAGS_o.c_str(), "w");
   fputs(source, fp);
