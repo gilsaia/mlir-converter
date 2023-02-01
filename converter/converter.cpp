@@ -5,7 +5,9 @@
 #include <gflags/gflags.h>
 
 #include "utils.h"
+#ifdef USE_PYTHON_FRONTEND
 #include "python_frontend/frontend.h"
+#endif
 
 DEFINE_string(frontend, "torch", "the original model type");
 DEFINE_string(model, "SimpleNet", "Default torch to use");
@@ -35,7 +37,11 @@ int main(int argc, char *argv[]) {
   char *source;
   if (FLAGS_frontend == "torch") {
     if (FLAGS_model == "SimpleNet") {
+#ifdef USE_PYTHON_FRONTEND
       source = get_simple_net();
+#else
+      throw NotWithPython();
+#endif
     } else {
       throw NotImplemented();
     }
