@@ -28,5 +28,26 @@ if(USE_PYTHON_FRONTEND)
   link_libraries(${PYTHON_LIBRARIES})
 endif()
 
+# MLIR/LLVM Configuration
+set(MLIR_DIR ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/build/lib/cmake/mlir)
+set(LLVM_DIR ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/build/lib/cmake/llvm)
+find_package(MLIR REQUIRED CONFIG)
+
+set(LLVM_MLIR_BINARY_DIR ${MLIR_DIR}/../../../bin)
+set(LLVM_MLIR_SOURCE_DIR ${MLIR_DIR}/../../../../mlir)
+set(LLVM_PROJECT_SOURCE_DIR ${MLIR_DIR}/../../../../)
+
+list(APPEND CMAKE_MODULE_PATH "${MLIR_CMAKE_DIR}")
+list(APPEND CMAKE_MODULE_PATH "${LLVM_CMAKE_DIR}")
+
+find_program(LLVM_TABLEGEN_EXE "llvm-tblgen" ${LLVM_TOOLS_BINARY_DIR}
+    NO_DEFAULT_PATH)
+
+include(TableGen)
+include(AddLLVM)
+include(AddMLIR)
+include(HandleLLVMOptions)
+#-------------------------------------------------------------------------------
+
 add_subdirectory(3rdparty/gflags)
 add_subdirectory(converter)
