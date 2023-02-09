@@ -4,13 +4,20 @@
 #include <string>
 #include <gflags/gflags.h>
 
+#include "mlir/IR/MLIRContext.h"
+#include "mlir/IR/BuiltinOps.h"
+#include "mlir/IR/Dialect.h"
+#include "mlir/Parser/Parser.h"
+#include "llvm/Support/raw_ostream.h"
+#include "llvm/ADT/StringRef.h"
+
 #include "utils.h"
 #ifdef USE_PYTHON_FRONTEND
 #include "python_frontend/frontend.h"
 #endif
 #include "mlir_frontend/frontend.h"
 
-DEFINE_string(frontend, "torch", "the original model type");
+DEFINE_string(frontend, "mlir", "the original model type");
 DEFINE_string(model, "SimpleNet", "Default torch to use");
 DEFINE_string(o, "output.mlir", "Output file name");
 
@@ -33,6 +40,11 @@ static bool ValidateModel(const char *flagname, const std::string &value) {
 DEFINE_validator(frontend, &ValidateFrontend);
 DEFINE_validator(model, &ValidateModel);
 
+void dumpMLIR(mlir::MLIRContext &context,llvm::StringRef &source,mlir::OwningOpRef<mlir::ModuleOp> &module){
+  module=mlir::parseSourceString<mlir::ModuleOp>(source,&context);
+  return;
+}
+
 int main(int argc, char *argv[]) {
   gflags::ParseCommandLineFlags(&argc, &argv, true);
   char *source;
@@ -53,6 +65,13 @@ int main(int argc, char *argv[]) {
       throw NotImplemented();
     }
   }
+
+  mlir::MLIRContext context;
+  mlir::OwningOpRef<mlir::ModuleOp> module;
+  llvm::StringRef source_l(source);
+  dumpMLIR(context,source_l,module);
+  module->dump();
+
   FILE *fp = fopen(FLAGS_o.c_str(), "w");
   fputs(source, fp);
   fclose(fp);

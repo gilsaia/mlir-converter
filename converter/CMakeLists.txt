@@ -14,4 +14,4 @@ add_executable(converter ${CONVERTER_FILES})
 
 target_include_directories(converter PRIVATE)
 
-target_link_libraries(converter PRIVATE gflags::gflags)
+target_link_libraries(converter PRIVATE gflags::gflags MLIRIR MLIRParser)
