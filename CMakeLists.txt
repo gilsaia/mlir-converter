@@ -28,6 +28,8 @@ if(USE_PYTHON_FRONTEND)
   link_libraries(${PYTHON_LIBRARIES})
 endif()
 
+add_subdirectory(3rdparty/gflags)
+
 # MLIR/LLVM Configuration
 set(MLIR_DIR ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/build/lib/cmake/mlir)
 set(LLVM_DIR ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/build/lib/cmake/llvm)
@@ -52,5 +54,4 @@ include_directories(${LLVM_INCLUDE_DIRS})
 include_directories(${MLIR_INCLUDE_DIRS})
 #-------------------------------------------------------------------------------
 
-add_subdirectory(3rdparty/gflags)
 add_subdirectory(converter)

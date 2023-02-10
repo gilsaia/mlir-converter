@@ -1,15 +1,16 @@
+#include <gflags/gflags.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <string>
-#include <gflags/gflags.h>
 
-#include "mlir/IR/MLIRContext.h"
+#include "mlir/Dialect/Func/IR/FuncOps.h"
 #include "mlir/IR/BuiltinOps.h"
 #include "mlir/IR/Dialect.h"
+#include "mlir/IR/MLIRContext.h"
 #include "mlir/Parser/Parser.h"
-#include "llvm/Support/raw_ostream.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/raw_ostream.h"
 
 #include "utils.h"
 #ifdef USE_PYTHON_FRONTEND
@@ -40,8 +41,10 @@ static bool ValidateModel(const char *flagname, const std::string &value) {
 DEFINE_validator(frontend, &ValidateFrontend);
 DEFINE_validator(model, &ValidateModel);
 
-void dumpMLIR(mlir::MLIRContext &context,llvm::StringRef &source,mlir::OwningOpRef<mlir::ModuleOp> &module){
-  module=mlir::parseSourceString<mlir::ModuleOp>(source,&context);
+void dumpMLIR(mlir::MLIRContext &context, llvm::StringRef &source,
+              mlir::OwningOpRef<mlir::ModuleOp> &module) {
+  context.loadDialect<mlir::func::FuncDialect>();
+  module = mlir::parseSourceString<mlir::ModuleOp>(source, &context);
   return;
 }
 
@@ -69,7 +72,7 @@ int main(int argc, char *argv[]) {
   mlir::MLIRContext context;
   mlir::OwningOpRef<mlir::ModuleOp> module;
   llvm::StringRef source_l(source);
-  dumpMLIR(context,source_l,module);
+  dumpMLIR(context, source_l, module);
   module->dump();
 
   FILE *fp = fopen(FLAGS_o.c_str(), "w");
