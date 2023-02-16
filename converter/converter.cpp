@@ -12,6 +12,8 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/raw_ostream.h"
 
+#include "torch-mlir/Dialect/Torch/IR/TorchDialect.h"
+
 #include "utils.h"
 #ifdef USE_PYTHON_FRONTEND
 #include "python_frontend/frontend.h"
@@ -44,6 +46,7 @@ DEFINE_validator(model, &ValidateModel);
 void dumpMLIR(mlir::MLIRContext &context, llvm::StringRef &source,
               mlir::OwningOpRef<mlir::ModuleOp> &module) {
   context.loadDialect<mlir::func::FuncDialect>();
+  context.loadDialect<mlir::torch::Torch::TorchDialect>();
   module = mlir::parseSourceString<mlir::ModuleOp>(source, &context);
   return;
 }

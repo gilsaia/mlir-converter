@@ -38,7 +38,8 @@ find_package(MLIR REQUIRED CONFIG)
 set(LLVM_MLIR_BINARY_DIR ${MLIR_DIR}/../../../bin)
 set(LLVM_MLIR_SOURCE_DIR ${MLIR_DIR}/../../../../mlir)
 set(LLVM_PROJECT_SOURCE_DIR ${MLIR_DIR}/../../../../)
-
+set(TORCH_MLIR_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/build/tools/torch-mlir/include ${CMAKE_SOURCE_DIR}/3rdparty/torch-mlir/include)
+set(MLIR_LIB_DIR ${MLIR_DIR}/../../)
 list(APPEND CMAKE_MODULE_PATH "${MLIR_CMAKE_DIR}")
 list(APPEND CMAKE_MODULE_PATH "${LLVM_CMAKE_DIR}")
 
@@ -52,6 +53,8 @@ include(HandleLLVMOptions)
 
 include_directories(${LLVM_INCLUDE_DIRS})
 include_directories(${MLIR_INCLUDE_DIRS})
+include_directories(${TORCH_MLIR_INCLUDE_DIRS})
+link_directories(${MLIR_LIB_DIR})
 #-------------------------------------------------------------------------------
 
 

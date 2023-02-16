@@ -13,5 +13,4 @@ endif()
 add_executable(converter ${CONVERTER_FILES})
 
 target_include_directories(converter PRIVATE)
-
-target_link_libraries(converter PRIVATE gflags::gflags MLIRIR MLIRParser MLIRFuncDialect)
+target_link_libraries(converter PRIVATE gflags::gflags MLIRIR MLIRParser MLIRFuncDialect TorchMLIRTorchDialect TorchMLIRTorchUtils)
