@@ -1,3 +1,4 @@
+#include <fstream>
 #include <gflags/gflags.h>
 #include <math.h>
 #include <stdio.h>
@@ -9,10 +10,16 @@
 #include "mlir/IR/Dialect.h"
 #include "mlir/IR/MLIRContext.h"
 #include "mlir/Parser/Parser.h"
+#include "mlir/Pass/Pass.h"
+#include "mlir/Pass/PassManager.h"
+#include "mlir/Transforms/Passes.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/raw_ostream.h"
 
+#include "torch-mlir/Conversion/TorchToLinalg/TorchToLinalg.h"
+#include "torch-mlir/Conversion/TorchToTosa/TorchToTosa.h"
 #include "torch-mlir/Dialect/Torch/IR/TorchDialect.h"
+#include "torch-mlir/Dialect/TorchConversion/IR/TorchConversionDialect.h"
 
 #include "utils.h"
 #ifdef USE_PYTHON_FRONTEND
@@ -43,12 +50,23 @@ static bool ValidateModel(const char *flagname, const std::string &value) {
 DEFINE_validator(frontend, &ValidateFrontend);
 DEFINE_validator(model, &ValidateModel);
 
-void dumpMLIR(mlir::MLIRContext &context, llvm::StringRef &source,
+void loadMLIR(mlir::MLIRContext &context, llvm::StringRef &source,
               mlir::OwningOpRef<mlir::ModuleOp> &module) {
   context.loadDialect<mlir::func::FuncDialect>();
   context.loadDialect<mlir::torch::Torch::TorchDialect>();
+  context.loadDialect<mlir::torch::TorchConversion::TorchConversionDialect>();
   module = mlir::parseSourceString<mlir::ModuleOp>(source, &context);
   return;
+}
+
+void processMLIR(mlir::MLIRContext &context,
+                 mlir::OwningOpRef<mlir::ModuleOp> &module) {
+  mlir::PassManager pm(module.get()->getName());
+  pm.addPass(mlir::createInlinerPass());
+  // pm.addPass(mlir::torch::createConvertTorchToLinalgPass());
+  if (mlir::failed(pm.run(*module))) {
+    llvm::errs() << "convert failed\n";
+  }
 }
 
 int main(int argc, char *argv[]) {
@@ -75,11 +93,20 @@ int main(int argc, char *argv[]) {
   mlir::MLIRContext context;
   mlir::OwningOpRef<mlir::ModuleOp> module;
   llvm::StringRef source_l(source);
-  dumpMLIR(context, source_l, module);
+  loadMLIR(context, source_l, module);
+  module->dump();
+  processMLIR(context, module);
   module->dump();
 
-  FILE *fp = fopen(FLAGS_o.c_str(), "w");
-  fputs(source, fp);
-  fclose(fp);
+  llvm::StringRef filename(FLAGS_o);
+  std::error_code ec;
+  llvm::raw_fd_ostream fs(filename, ec);
+  module->print(fs);
+
+  // std::ofstream fp;
+  // FILE *fp = fopen(FLAGS_o.c_str(), "w");
+  // fputs(source, fp);
+  // fclose(fp);
+  // fp.close();
   return 0;
 }

@@ -12,5 +12,11 @@ endif()
 
 add_executable(converter ${CONVERTER_FILES})
 
-target_include_directories(converter PRIVATE)
-target_link_libraries(converter PRIVATE gflags::gflags MLIRIR MLIRParser MLIRFuncDialect TorchMLIRTorchDialect TorchMLIRTorchUtils)
+get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
+get_property(conversion_libs GLOBAL PROPERTY MLIR_CONVERSION_LIBS)
+
+target_link_libraries(converter PRIVATE gflags::gflags ${MLIR_LIB_FILES}
+# MLIRIR MLIRParser MLIRFuncDialect MLIRPass MLIRTransforms MLIRTosaDialect MLIRSupport
+TorchMLIRTorchDialect TorchMLIRTorchUtils TorchMLIRTorchToLinalg
+TorchMLIRConversionPasses TorchMLIRConversionUtils TorchMLIRTorchConversionDialect
+TorchMLIRTorchConversionPasses)
