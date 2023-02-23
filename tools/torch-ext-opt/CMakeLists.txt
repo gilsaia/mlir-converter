@@ -4,17 +4,19 @@ get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
 get_property(conversion_libs GLOBAL PROPERTY MLIR_CONVERSION_LIBS)
 
 target_link_libraries(torch-ext-opt PRIVATE 
-${dialect_libs}
-${conversion_libs}
+# ${dialect_libs}
+# ${conversion_libs}
 MLIROptLib
 TorchMLIRInitAll
 TorchMLIRTorchDialect
 TorchMLIRTorchConversionDialect
+TorchMLIRTMTensorPasses
 TorchMLIRTMTensorDialect
 TorchMLIRTorchPasses
 TorchMLIRTorchConversionPasses
 TorchMLIRConversionPasses
-TorchMLIRConversionUtils
+TorchMLIRRefBackend
+MLIRMathTransforms
 TorchMLIRTorchConversionToMLProgram
 TorchMLIRTorchToArith
 TorchMLIRTorchToLinalg
@@ -24,6 +26,12 @@ TorchMLIRTorchToTMTensor
 TorchMLIRTorchToTosa
 TorchMLIRTorchUtils
 TorchMLIRConversionUtils
+MhloPasses
+MLIRAnalysis
+MhloDialect
+MhloAnalysis
+MhloToLinalg
+MhloToArithmeticConversion
 StablehloOps
 StablehloPasses
 StablehloRegister
@@ -40,4 +48,6 @@ THLODialect
 StablehloBroadcastUtils
 MhloScatterUtils
 MhloTypeConversion
-MLIRMhloUtils)
+MLIRMhloUtils
+${dialect_libs}
+${conversion_libs})

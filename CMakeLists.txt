@@ -41,7 +41,9 @@ set(LLVM_PROJECT_SOURCE_DIR ${MLIR_DIR}/../../../../)
 set(TORCH_MLIR_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/build/tools/torch-mlir/include 
 ${CMAKE_SOURCE_DIR}/3rdparty/torch-mlir/include 
 ${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/build/tools/torch-mlir-dialects/include
-${CMAKE_SOURCE_DIR}/3rdparty/torch-mlir/externals/llvm-external-projects/torch-mlir-dialects/include )
+${CMAKE_SOURCE_DIR}/3rdparty/torch-mlir/externals/llvm-external-projects/torch-mlir-dialects/include
+${CMAKE_SOURCE_DIR}/3rdparty/llvm-project/build/tools/torch-mlir/mlir-hlo
+${CMAKE_SOURCE_DIR}/3rdparty/torch-mlir/externals/mlir-hlo)
 set(MLIR_LIB_DIR ${MLIR_DIR}/../../)
 list(APPEND CMAKE_MODULE_PATH "${MLIR_CMAKE_DIR}")
 list(APPEND CMAKE_MODULE_PATH "${LLVM_CMAKE_DIR}")
