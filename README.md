@@ -17,7 +17,8 @@ $ cmake -G Ninja ../llvm \
     -DLLVM_EXTERNAL_TORCH_MLIR_SOURCE_DIR=../../torch-mlir \
     -DLLVM_EXTERNAL_TORCH_MLIR_DIALECTS_SOURCE_DIR=../../torch-mlir/externals/llvm-external-projects/torch-mlir-dialects \
     -DLLVM_ENABLE_ASSERTIONS=ON \
-    -DCMAKE_BUILD_TYPE=RELEASE
+    -DCMAKE_BUILD_TYPE=RELEASE \
+    -DLLVM_ENABLE_RTTI=ON
 $ ninja check-mlir check-clang check-torch-mlir
 ```
 
@@ -32,5 +33,6 @@ $ cmake -G Ninja ../llvm \
     -DLLVM_EXTERNAL_TORCH_MLIR_SOURCE_DIR=../../torch-mlir \
     -DLLVM_EXTERNAL_TORCH_MLIR_DIALECTS_SOURCE_DIR=../../torch-mlir/externals/llvm-external-projects/torch-mlir-dialects \
     -DLLVM_ENABLE_ASSERTIONS=ON \
-    -DCMAKE_BUILD_TYPE=RELEASE
+    -DCMAKE_BUILD_TYPE=RELEASE \
+    -DLLVM_ENABLE_RTTI=ON
 ```
