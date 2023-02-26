@@ -73,6 +73,7 @@ link_directories(${MLIR_LIB_DIR})
 add_subdirectory(3rdparty/onnx-mlir)
 set(ONNX_MLIR_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/3rdparty/onnx-mlir ${CMAKE_CURRENT_BINARY_DIR}/3rdparty/onnx-mlir)
 include_directories(${ONNX_MLIR_INCLUDE_DIRS})
+#-------------------------------------------------------------------------------
 
 add_subdirectory(converter)
 add_subdirectory(tools)
