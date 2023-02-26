@@ -16,10 +16,10 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/raw_ostream.h"
 
-#include "torch-mlir/Conversion/TorchToLinalg/TorchToLinalg.h"
-#include "torch-mlir/Conversion/TorchToTosa/TorchToTosa.h"
-#include "torch-mlir/Dialect/Torch/IR/TorchDialect.h"
-#include "torch-mlir/Dialect/TorchConversion/IR/TorchConversionDialect.h"
+// #include "torch-mlir/Conversion/TorchToLinalg/TorchToLinalg.h"
+// #include "torch-mlir/Conversion/TorchToTosa/TorchToTosa.h"
+// #include "torch-mlir/Dialect/Torch/IR/TorchDialect.h"
+// #include "torch-mlir/Dialect/TorchConversion/IR/TorchConversionDialect.h"
 
 #include "utils.h"
 #ifdef USE_PYTHON_FRONTEND
@@ -53,8 +53,8 @@ DEFINE_validator(model, &ValidateModel);
 void loadMLIR(mlir::MLIRContext &context, llvm::StringRef &source,
               mlir::OwningOpRef<mlir::ModuleOp> &module) {
   context.loadDialect<mlir::func::FuncDialect>();
-  context.loadDialect<mlir::torch::Torch::TorchDialect>();
-  context.loadDialect<mlir::torch::TorchConversion::TorchConversionDialect>();
+  // context.loadDialect<mlir::torch::Torch::TorchDialect>();
+  // context.loadDialect<mlir::torch::TorchConversion::TorchConversionDialect>();
   module = mlir::parseSourceString<mlir::ModuleOp>(source, &context);
   return;
 }

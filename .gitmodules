@@ -7,6 +7,3 @@
 [submodule "3rdparty/torch-mlir"]
 	path = 3rdparty/torch-mlir
 	url = git@github.com:gilsaia/torch-mlir.git
-[submodule "3rdparty/onnx-mlir"]
-	path = 3rdparty/onnx-mlir
-	url = git@github.com:onnx/onnx-mlir.git

@@ -11,6 +11,10 @@
 #include "torch-mlir/InitAll.h"
 #include "torch-mlir/RefBackend/Passes.h"
 
+#include "src/Dialect/Krnl/KrnlOps.hpp"
+#include "src/Dialect/ONNX/ONNXDialect.hpp"
+#include "src/InitOMPasses.hpp"
+
 #include "mhlo/transforms/passes.h"
 
 using namespace mlir;
@@ -18,6 +22,7 @@ using namespace mlir;
 int main(int argc, char **argv) {
   registerAllPasses();
   mlir::torch::registerAllPasses();
+  onnx_mlir::initOMPasses(0);
   // mlir::torch::registerTorchPasses();
   // mlir::torch::registerTorchConversionPasses();
   // mlir::torch::registerConversionPasses();
@@ -30,6 +35,8 @@ int main(int argc, char **argv) {
 
   DialectRegistry registry;
   registerAllDialects(registry);
+  registry.insert<mlir::ONNXDialect>();
+  registry.insert<mlir::KrnlDialect>();
   // registry.insert<mlir::torch::Torch::TorchDialect>();
   // registry.insert<mlir::torch::TorchConversion::TorchConversionDialect>();
   // registry.insert<mlir::torch::TMTensor::TMTensorDialect>();

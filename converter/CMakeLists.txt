@@ -15,8 +15,8 @@ add_executable(converter ${CONVERTER_FILES})
 get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
 get_property(conversion_libs GLOBAL PROPERTY MLIR_CONVERSION_LIBS)
 
-target_link_libraries(converter PRIVATE gflags::gflags ${MLIR_LIB_FILES}
-# MLIRIR MLIRParser MLIRFuncDialect MLIRPass MLIRTransforms MLIRTosaDialect MLIRSupport
-TorchMLIRTorchDialect TorchMLIRTorchUtils TorchMLIRTorchToLinalg
-TorchMLIRConversionPasses TorchMLIRConversionUtils TorchMLIRTorchConversionDialect
-TorchMLIRTorchConversionPasses)
+target_link_libraries(converter PRIVATE gflags::gflags
+MLIRIR MLIRParser MLIRFuncDialect MLIRPass MLIRTransforms MLIRTosaDialect MLIRSupport)
+# TorchMLIRTorchDialect TorchMLIRTorchUtils TorchMLIRTorchToLinalg
+# TorchMLIRConversionPasses TorchMLIRConversionUtils TorchMLIRTorchConversionDialect
+# TorchMLIRTorchConversionPasses)
