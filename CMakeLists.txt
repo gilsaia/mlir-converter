@@ -75,5 +75,7 @@ set(ONNX_MLIR_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/3rdparty/onnx-mlir ${CMAKE_CURREN
 include_directories(${ONNX_MLIR_INCLUDE_DIRS})
 #-------------------------------------------------------------------------------
 
+include_directories(${CMAKE_SOURCE_DIR}/include)
+add_subdirectory(lib)
 add_subdirectory(converter)
 add_subdirectory(tools)

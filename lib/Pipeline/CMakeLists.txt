@@ -1,0 +1,3 @@
+add_mlir_library(QuantExtMLIRPipeline
+Passes.cpp
+LowerONNXToMLIR.cpp)
