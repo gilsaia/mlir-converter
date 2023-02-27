@@ -1,1 +1,1 @@
-add_subdirectory(torch-ext-opt)
+add_subdirectory(quant-ext-opt)

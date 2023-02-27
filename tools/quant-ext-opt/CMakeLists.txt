@@ -1,10 +1,10 @@
-add_llvm_executable(torch-ext-opt torch-ext-opt.cpp)
+add_llvm_executable(quant-ext-opt quant-ext-opt.cpp)
 
 get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
 get_property(conversion_libs GLOBAL PROPERTY MLIR_CONVERSION_LIBS)
 get_property(OMLibs GLOBAL PROPERTY ONNX_MLIR_LIBS)
 
-target_link_libraries(torch-ext-opt PRIVATE 
+target_link_libraries(quant-ext-opt PRIVATE 
 # ${dialect_libs}
 # ${conversion_libs}
 ${OMLibs}
