@@ -7,6 +7,7 @@ get_property(OMLibs GLOBAL PROPERTY ONNX_MLIR_LIBS)
 target_link_libraries(quant-ext-opt PRIVATE 
 # ${dialect_libs}
 # ${conversion_libs}
+QuantExtMLIRPipeline
 ${OMLibs}
 MLIROptLib
 TorchMLIRInitAll

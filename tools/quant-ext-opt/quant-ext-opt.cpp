@@ -17,12 +17,15 @@
 
 #include "mhlo/transforms/passes.h"
 
+#include "quant-ext-opt/Pipeline/Passes.h"
+
 using namespace mlir;
 
 int main(int argc, char **argv) {
   registerAllPasses();
   mlir::torch::registerAllPasses();
   onnx_mlir::initOMPasses(0);
+
   // mlir::torch::registerTorchPasses();
   // mlir::torch::registerTorchConversionPasses();
   // mlir::torch::registerConversionPasses();
@@ -32,11 +35,13 @@ int main(int argc, char **argv) {
   // mlir::mhlo::registerStablehloLegalizeToHloPass();
   // mlir::mhlo::registerChloLegalizeToHloPass();
   // mlir::mhlo::registerHloLegalizeToLinalgPass();
+  mlir::quant_ext::registerPipelines();
 
   DialectRegistry registry;
   registerAllDialects(registry);
   registry.insert<mlir::ONNXDialect>();
   registry.insert<mlir::KrnlDialect>();
+  //   onnx_mlir::accel::initAccelerators()
   // registry.insert<mlir::torch::Torch::TorchDialect>();
   // registry.insert<mlir::torch::TorchConversion::TorchConversionDialect>();
   // registry.insert<mlir::torch::TMTensor::TMTensorDialect>();
@@ -44,5 +49,5 @@ int main(int argc, char **argv) {
 
   return mlir::asMainReturnCode(
       mlir::MlirOptMain(argc, argv, "MLIR modular optimizer driver\n", registry,
-                        /*preloadDialectsInContext=*/false));
+                        /*preloadDialectsInContext=*/true));
 }
