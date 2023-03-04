@@ -5,6 +5,12 @@ project(MLIR-Converter VERSION 0.1)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+if(UNIX)
+  if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+    add_compile_options(-Wno-unused-but-set-variable)
+  endif()
+endif()
+
 option(USE_PYTHON_FRONTEND "use python frontend" ON)
 
 if(USE_PYTHON_FRONTEND)
