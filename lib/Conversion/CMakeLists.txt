@@ -1,0 +1,11 @@
+add_mlir_library(QuantExtMLIRConversionPasses
+Passes.cpp
+
+DEPENDS
+QuantExtConversionPassIncGen
+
+LINK_COMPONENTS
+Core
+
+LINK_LIBS PUBLIC
+)

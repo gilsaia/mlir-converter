@@ -2,4 +2,4 @@ set(LLVM_TARGET_DEFINITIONS Passes.td)
 mlir_tablegen(Passes.h.inc -gen-pass-decls)
 add_public_tablegen_target(QuantExtConversionPassIncGen)
 
-add_mlir_doc(Passes QuantExtConversionPassIncGen Conversions/ -gen-pass-doc)
+add_mlir_doc(Passes QuantExtConversionPassIncGen ./ -gen-pass-doc)
