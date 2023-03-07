@@ -1,3 +1,5 @@
+add_subdirectory(ONNXToQuant)
+
 add_mlir_library(QuantExtMLIRConversionPasses
 Passes.cpp
 
@@ -8,4 +10,5 @@ LINK_COMPONENTS
 Core
 
 LINK_LIBS PUBLIC
+QuantExtMLIRONNXToQuant
 )
