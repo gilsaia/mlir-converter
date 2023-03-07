@@ -8,6 +8,7 @@ target_link_libraries(quant-ext-opt PRIVATE
 # ${dialect_libs}
 # ${conversion_libs}
 QuantExtMLIRPipeline
+QuantExtMLIRConversionPasses
 ${OMLibs}
 MLIROptLib
 TorchMLIRInitAll

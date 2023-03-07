@@ -34,6 +34,8 @@ void mlir::quant_ext::createONNXTToQuantMLIRPipeline(mlir::OpPassManager &pm) {
 
   pm.addNestedPass<func::FuncOp>(onnx_mlir::createInstrumentPass());
 
+  //   pm.addNestedPass<func::FuncOp>(createConvertONNXToQuantPass());
+
   pm.addPass(onnx_mlir::createLowerToKrnlPass(0, true));
 
   pm.addPass(mlir::createCanonicalizerPass());

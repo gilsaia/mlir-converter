@@ -1,6 +1,8 @@
 #ifndef QUANTEXTMLIR_PIPELINES_PASSES_H
 #define QUANTEXTMLIR_PIPELINES_PASSES_H
 #include "mlir/Pass/Pass.h"
+#include "quant-ext-opt/Conversion/ONNXToQuant/ONNXToQuant.h"
+#include "quant-ext-opt/Conversion/Passes.h"
 namespace mlir {
 namespace quant_ext {
 void createONNXTToQuantMLIRPipeline(OpPassManager &pm);

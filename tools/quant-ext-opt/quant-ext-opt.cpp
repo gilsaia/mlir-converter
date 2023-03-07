@@ -17,6 +17,7 @@
 
 #include "mhlo/transforms/passes.h"
 
+#include "quant-ext-opt/Conversion/Passes.h"
 #include "quant-ext-opt/Pipeline/Passes.h"
 
 using namespace mlir;
@@ -25,6 +26,7 @@ int main(int argc, char **argv) {
   registerAllPasses();
   mlir::torch::registerAllPasses();
   onnx_mlir::initOMPasses(0);
+  mlir::quant_ext::registerConversionPasses();
 
   // mlir::torch::registerTorchPasses();
   // mlir::torch::registerTorchConversionPasses();
