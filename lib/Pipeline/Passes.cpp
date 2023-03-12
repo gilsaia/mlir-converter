@@ -5,4 +5,8 @@ void mlir::quant_ext::registerPipelines() {
       "lower-onnx-to-quant-mlir-pipeline",
       "Pipeline lowering ONNX object to MLIR with quant-ext.",
       mlir::quant_ext::createONNXTToQuantMLIRPipeline);
+  mlir::PassPipelineRegistration<>(
+      "lower-torch-to-llvmir-pipeline",
+      "Pipeline lowering torch object to LLVM IR.",
+      mlir::quant_ext::createTorchToLLVMIRPipeline);
 }
